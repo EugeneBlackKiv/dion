@@ -4,8 +4,6 @@ export class AirlineFly extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({mode: 'open'});
-
-    // Crearea și atașarea HTML + CSS în interiorul DOM umbră
     this.shadowRoot.innerHTML = `
       <style>
         .airline_fly_section{
@@ -13,7 +11,6 @@ export class AirlineFly extends HTMLElement {
           height: 246px;
           position: relative;
           z-index: -10;
-          /*border: 1px solid var(--outline-outline, #C6C6CD);*/
         }
         .background_positioning{
           position: absolute;
@@ -139,8 +136,6 @@ export class AirlineFly extends HTMLElement {
       </style>
 
       <div class="airline_fly_section">
-<!--        <canvas-line class="background_positioning"></canvas-line>-->
-<!--        <canvas-lineanim class="background_positioning"></canvas-lineanim>-->
         <back-blur class="background_positioning"></back-blur>
 
         <div class="container_avion_1">
@@ -191,42 +186,33 @@ export class AirlineFly extends HTMLElement {
   }
 
   connectedCallback() {
-    const inaltimeaZonei = window.innerHeight; //➡️ window.innerHeight captează înălțimea ferestrei. Aceasta este înregistrată în scopuri de depanare.
-    // console.log('Inaltimea zonei de vizualizare:', inaltimeaZonei);
+    const inaltimeaZonei = window.innerHeight;
 
-    const elementsTrig = this.shadowRoot.querySelector(".airline_fly_section"); //➡️ Găsește elementul .un_patrat în interiorul DOM-ului Shadow. Acesta este elementul pe care doriți să îl animați.
+    let start = 0;
+    let end = 400;
+    let elementNume = ".airline_fly_section";
 
-    let rectElem = elementsTrig.getBoundingClientRect(); //getBoundingClientRect() obține poziția elementului în raport cu fereastra de vizualizare.
-    let elementDeSus = rectElem.top; //rectElem.top vă spune cât de departe de partea superioară a ferestrei de vizualizare se află elementul.
+    const parametriiAnimatiei = (startPoint, endPoint, className) => {
+      const elementPornire = this.shadowRoot.querySelector(className);
+      let valoareScroll = window.scrollY;
 
-    // console.log('Unde se afla elementul de sus:', elementDeSus);
-
-    let start = 0; // ➡️start: când începe animația, pe baza poziției verticale a elementului.
-    let end = 400;// ➡️end: poziția de defilare hardcoded în care se termină animația.
-    let elementNume = ".airline_fly_section";//➡️ elementNume: Selector CSS pentru elementul care urmează să fie animat.
-
-    const parametriiAnimatiei = (startPoint, endPoint, className) => { //➡️ Declară o funcție săgeată, astfel încât aceasta să rămână legată de instanța elementului personalizat.
-      const elementPornire = this.shadowRoot.querySelector(className); //➡️ Selectează elementul țintă din nou în Shadow DOM pe baza numelui clasei furnizate.
-      let valoareScroll = window.scrollY; //➡️ Obține poziția curentă de derulare a paginii.
-
-      if (valoareScroll < startPoint) valoareScroll = startPoint; //➡️ Normalizează valoareaScroll astfel încât să fie fixată între startPoint și endPoint. Previne valorile din afara intervalului de animație.
+      if (valoareScroll < startPoint) valoareScroll = startPoint;
       if (valoareScroll > endPoint) valoareScroll = endPoint;
 
-      let progress = (valoareScroll - startPoint) / (endPoint - startPoint); //➡️ Calculează distanța de derulare între punctele de început și de sfârșit ca valoare între 0 și 1.
-      let marginTop = progress * (endPoint - startPoint);//➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
-      let opacitate = 1 - (progress * (endPoint - startPoint) * 0.004);//➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
+      let progress = (valoareScroll - startPoint) / (endPoint - startPoint);
+      let marginTop = progress * (endPoint - startPoint);
+      let opacitate = 1 - (progress * (endPoint - startPoint) * 0.004);
 
-      // elementPornire.style.marginTop = `${marginTop}px`; //➡️ Setează marja calculată pe element pentru a crea efectul de animație.
       elementPornire.style.transform = `translateY(${marginTop}px)`;
       elementPornire.style.opacity = opacitate;
 
       // console.log(`progress: ${progress}, translateY: ${marginTop} opacity: ${opacitate}`);
     };
 
-    let ticking = false; //➡️ Flag pentru a controla requestAnimationFrame. Împiedică rularea simultană a mai multor cadre de animație, îmbunătățind performanța.
+    let ticking = false;
 
-    const monitorScroll = () => { //➡️ Definește funcția de gestionare a evenimentului scroll.
-      if (!ticking) { //➡️ Dacă ticking este fals:Programează parametriiAnimatiei să ruleze la următorul cadru de animație. Setează ticking la true, astfel încât să nu se programeze din nou până nu se termină. După execuție, resetează ticking la false.
+    const monitorScroll = () => {
+      if (!ticking) {
         window.requestAnimationFrame(() => {
           parametriiAnimatiei(start, end, elementNume);
           ticking = false;
@@ -235,7 +221,7 @@ export class AirlineFly extends HTMLElement {
       }
     };
 
-    window.addEventListener("scroll", monitorScroll); //➡️ Înregistrează ascultătorul de evenimente scroll pe fereastră. Fiecare derulare declanșează monitorScroll().
+    window.addEventListener("scroll", monitorScroll);
   }
 
 }
