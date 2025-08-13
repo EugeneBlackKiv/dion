@@ -1,5 +1,3 @@
-// import './canvas_line.js'
-// import './canvas_line_anim.js'
 import './back_blur.js'
 
 export class AirlineFly extends HTMLElement {
