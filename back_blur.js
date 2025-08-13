@@ -3,7 +3,6 @@ export class BackBlur extends HTMLElement {
     super();
     this.attachShadow({mode: 'open'});
 
-    // Crearea și atașarea HTML + CSS în interiorul DOM umbră
     this.shadowRoot.innerHTML = `
       <style>
         .container{

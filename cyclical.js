@@ -5,7 +5,6 @@ export class CyClical extends HTMLElement {
     super();
     this.attachShadow({mode: 'open'});
 
-    // Crearea și atașarea HTML + CSS în interiorul DOM umbră
     this.shadowRoot.innerHTML = `
       <style>
         .cyclical {
@@ -423,30 +422,15 @@ export class CyClical extends HTMLElement {
           </defs>
         </svg>
         
-
       </div> 
     `;
   }
 
   connectedCallback() {
-    const inaltimeaZonei = window.innerHeight; //➡️ window.innerHeight captează înălțimea ferestrei. Aceasta este înregistrată în scopuri de depanare.
-    // console.log('Inaltimea zonei de vizualizare:', inaltimeaZonei);
 
-    // ----------- Indentificarea pozitii elementului -----------
-
-    const elementsTrig = this.shadowRoot.querySelector(".prim"); //➡️ Găsește elementul .un_patrat în interiorul DOM-ului Shadow. Acesta este elementul pe care doriți să îl animați.
-
-    let rectElem = elementsTrig.getBoundingClientRect(); //getBoundingClientRect() obține poziția elementului în raport cu fereastra de vizualizare.
-    let elementDeSus = rectElem.top; //rectElem.top vă spune cât de departe de partea superioară a ferestrei de vizualizare se află elementul.
-    let valoareScrollOutside = window.scrollY; //➡️ Obține poziția curentă de derulare a paginii.
-
-    // console.log('Unde se afla elementul de sus:', elementDeSus);
-
-    // -----------  -----------
-
-    let start = 2300; // ➡️start: când începe animația, pe baza poziției verticale a elementului.
-    let end = 2520;// ➡️end: poziția de defilare hardcoded în care se termină animația.
-    let elementNume = ".prim";//➡️ elementNume: Selector CSS pentru elementul care urmează să fie animat.
+    let start = 2300;
+    let end = 2520;
+    let elementNume = ".prim";
 
     let start_sec = 2400;
     let end_sec = 2620;
@@ -461,51 +445,41 @@ export class CyClical extends HTMLElement {
     let elementNume_qui = ".qui";
 
 
-    const parametriiAnimatiei = (startPoint, endPoint, className) => { //➡️ Declară o funcție săgeată, astfel încât aceasta să rămână legată de instanța elementului personalizat.
-      const elementPornire = this.shadowRoot.querySelector(className); //➡️ Selectează elementul țintă din nou în Shadow DOM pe baza numelui clasei furnizate.
-      let valoareScroll = window.scrollY; //➡️ Obține poziția curentă de derulare a paginii.
+    const parametriiAnimatiei = (startPoint, endPoint, className) => {
+      const elementPornire = this.shadowRoot.querySelector(className);
+      let valoareScroll = window.scrollY;
 
-      if (valoareScroll < startPoint) valoareScroll = startPoint; //➡️ Normalizează valoareaScroll astfel încât să fie fixată între startPoint și endPoint. Previne valorile din afara intervalului de animație.
+      if (valoareScroll < startPoint) valoareScroll = startPoint;
       if (valoareScroll > endPoint) valoareScroll = endPoint;
 
-      let progress = (valoareScroll - startPoint) / (endPoint - startPoint); //➡️ Calculează distanța de derulare între punctele de început și de sfârșit ca valoare între 0 și 1.
+      let progress = (valoareScroll - startPoint) / (endPoint - startPoint);
       let marginTop = (progress * (endPoint - startPoint) * 0.01) / 2.2;
-      //➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
-      let opacitate = (progress * (endPoint - startPoint) * 0.01) / 2.2;//➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
+      let opacitate = (progress * (endPoint - startPoint) * 0.01) / 2.2;
 
-      // elementPornire.style.marginTop = `${marginTop}px`; //➡️ Setează marja calculată pe element pentru a crea efectul de animație.
       elementPornire.style.transform = `translate(-50%, -50%) scale(${marginTop}) `;
-      // elementPornire.style.opacity = opacitate;
-
-      // console.log(`progress: ${progress}, Scale: ${marginTop}, opacitate: ${opacitate}`);
 
     };
 
-    const parametriiAnimatieiSec = (startPoint, endPoint, className) => { //➡️ Declară o funcție săgeată, astfel încât aceasta să rămână legată de instanța elementului personalizat.
-      const elementPornire = this.shadowRoot.querySelector(className); //➡️ Selectează elementul țintă din nou în Shadow DOM pe baza numelui clasei furnizate.
-      let valoareScroll = window.scrollY; //➡️ Obține poziția curentă de derulare a paginii.
+    const parametriiAnimatieiSec = (startPoint, endPoint, className) => {
+      const elementPornire = this.shadowRoot.querySelector(className);
+      let valoareScroll = window.scrollY;
 
-      if (valoareScroll < startPoint) valoareScroll = startPoint; //➡️ Normalizează valoareaScroll astfel încât să fie fixată între startPoint și endPoint. Previne valorile din afara intervalului de animație.
+      if (valoareScroll < startPoint) valoareScroll = startPoint;
       if (valoareScroll > endPoint) valoareScroll = endPoint;
 
-      let progress = (valoareScroll - startPoint) / (endPoint - startPoint); //➡️ Calculează distanța de derulare între punctele de început și de sfârșit ca valoare între 0 și 1.
+      let progress = (valoareScroll - startPoint) / (endPoint - startPoint);
       let marginTop = (progress * (endPoint - startPoint) * 0.01) / 2.2;
-      //➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
-      let opacitate = (progress * (endPoint - startPoint) * 0.01) / 2.2;//➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
+      let opacitate = (progress * (endPoint - startPoint) * 0.01) / 2.2;
 
-      // elementPornire.style.marginTop = `${marginTop}px`; //➡️ Setează marja calculată pe element pentru a crea efectul de animație.
       elementPornire.style.transform = ` scale(${marginTop}) `;
       elementPornire.style.opacity = opacitate;
-
-      // console.log(`progress: ${progress}, Scale: ${marginTop}, opacitate: ${opacitate}`);
-
     };
 
 
-    let ticking = false; //➡️ Flag pentru a controla requestAnimationFrame. Împiedică rularea simultană a mai multor cadre de animație, îmbunătățind performanța.
+    let ticking = false;
 
-    const monitorScroll = () => { //➡️ Definește funcția de gestionare a evenimentului scroll.
-      if (!ticking) { //➡️ Dacă ticking este fals:Programează parametriiAnimatiei să ruleze la următorul cadru de animație. Setează ticking la true, astfel încât să nu se programeze din nou până nu se termină. După execuție, resetează ticking la false.
+    const monitorScroll = () => {
+      if (!ticking) {
         window.requestAnimationFrame(() => {
           parametriiAnimatiei(start, end, elementNume);
           parametriiAnimatiei(start_sec, end_sec, elementNume_sec);
@@ -517,7 +491,7 @@ export class CyClical extends HTMLElement {
       }
     };
 
-    window.addEventListener("scroll", monitorScroll); //➡️ Înregistrează ascultătorul de evenimente scroll pe fereastră. Fiecare derulare declanșează monitorScroll().
+    window.addEventListener("scroll", monitorScroll);
   }
 }
 
