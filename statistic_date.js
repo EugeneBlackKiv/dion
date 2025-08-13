@@ -67,9 +67,20 @@ export class StatisticDate extends HTMLElement {
           left: 56%;
           z-index: 10;
         }
+        .punct{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) scale(0.5);
+        }
       </style>
+      
 
       <div class="container_section">
+<!--        <div class="punct"></div>-->
+        <svg class="punct" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="#805BFF"/>
+        </svg>
         <div class="statist stat_prim">
           <div class="valoare">120</div>
           <div class="curen">sources</div>
@@ -93,7 +104,7 @@ export class StatisticDate extends HTMLElement {
 
     // ----------- Indentificarea pozitii elementului -----------
 
-    const elementsTrig = this.shadowRoot.querySelector(".stat_prim"); //➡️ Găsește elementul .un_patrat în interiorul DOM-ului Shadow. Acesta este elementul pe care doriți să îl animați.
+    const elementsTrig = this.shadowRoot.querySelector(".punct"); //➡️ Găsește elementul .un_patrat în interiorul DOM-ului Shadow. Acesta este elementul pe care doriți să îl animați.
 
     let rectElem = elementsTrig.getBoundingClientRect(); //getBoundingClientRect() obține poziția elementului în raport cu fereastra de vizualizare.
     let elementDeSus = rectElem.top; //rectElem.top vă spune cât de departe de partea superioară a ferestrei de vizualizare se află elementul.
@@ -114,6 +125,10 @@ export class StatisticDate extends HTMLElement {
     let start_ter = 2500;
     let end_ter = 2720;
     let elementNume_ter = ".stat_ter";
+
+    let start_point = 1700;
+    let end_point = 2400;
+    let elementNume_point = ".punct";
 
 
     const parametriiAnimatiei = (startPoint, endPoint, className) => { //➡️ Declară o funcție săgeată, astfel încât aceasta să rămână legată de instanța elementului personalizat.
@@ -154,6 +169,26 @@ export class StatisticDate extends HTMLElement {
 
     };
 
+    const parametriiAnimatieiPoint = (startPoint, endPoint, className) => { //➡️ Declară o funcție săgeată, astfel încât aceasta să rămână legată de instanța elementului personalizat.
+      const elementPornire = this.shadowRoot.querySelector(className); //➡️ Selectează elementul țintă din nou în Shadow DOM pe baza numelui clasei furnizate.
+      let valoareScroll = window.scrollY; //➡️ Obține poziția curentă de derulare a paginii.
+
+      if (valoareScroll < startPoint) valoareScroll = startPoint; //➡️ Normalizează valoareaScroll astfel încât să fie fixată între startPoint și endPoint. Previne valorile din afara intervalului de animație.
+      if (valoareScroll > endPoint) valoareScroll = endPoint;
+
+      let progress = (valoareScroll - startPoint) / (endPoint - startPoint); //➡️ Calculează distanța de derulare între punctele de început și de sfârșit ca valoare între 0 și 1.
+      let marginTop = -716 + (progress * (endPoint - startPoint));//➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
+      let scale = (progress * (endPoint - startPoint) * 0.01) / 2.4;//➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
+      let opacitate = 3-((progress * (endPoint - startPoint) * 0.01) / 2.4);//➡️ Convertește progresul într-o valoare pixel. Această valoare este cât de mult doriți să deplasați elementul pe verticală.
+
+      // elementPornire.style.marginTop = `${marginTop}px`; //➡️ Setează marja calculată pe element pentru a crea efectul de animație.
+      elementPornire.style.transform = `translate(-50%, ${marginTop}px)  scale(${scale})`;
+      elementPornire.style.opacity = opacitate;
+
+      // console.log(`progress: ${progress}, translateY: ${marginTop}, opacitate: ${opacitate}`);
+
+    };
+
 
     let ticking = false; //➡️ Flag pentru a controla requestAnimationFrame. Împiedică rularea simultană a mai multor cadre de animație, îmbunătățind performanța.
 
@@ -163,6 +198,7 @@ export class StatisticDate extends HTMLElement {
           parametriiAnimatiei(start, end, elementNume);
           parametriiAnimatieiSec(start_sec, end_sec, elementNume_sec);
           parametriiAnimatiei(start_ter, end_ter, elementNume_ter);
+          parametriiAnimatieiPoint(start_point, end_point, elementNume_point);
           ticking = false;
         });
         ticking = true;
