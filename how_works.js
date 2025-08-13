@@ -108,7 +108,7 @@ export class HowWorks extends HTMLElement {
           height: 354px;
           position: absolute;
           transform: scale(0.62) rotate(-20deg);
-          top: 62px;
+          top: 88px;
           left: -104px;
           z-index: 2;
 
