@@ -93,16 +93,74 @@ export class WhatUnique extends HTMLElement {
         .vs_arg{
           display: flex;
           width: 648px;
-          padding: 26px 40px;
+          align-items: center;
+          border-radius: 24px;
+          box-shadow: 0 6px 24px 0 var(--shadow-card, #1B1B1B);
+        }
+        .decor_left{
+          width: 32px;
+          flex-shrink: 0;
+          align-self: stretch;
+          
+          border-radius: 24px 0 0 24px;
+          border-top: 1px solid var(--primary-primary, #805BFF);
+          border-bottom: 1px solid var(--primary-primary, #805BFF);
+          border-left: 1px solid var(--primary-primary, #805BFF);
+          background: var(--surface-surface, #1E1E1E);
+        }
+        .label_left{
+          display: flex;
+          padding: 26px 0 26px 8px;
           align-items: center;
           gap: 10px;
+          flex: 1 0 0;
           
-          border-radius: 24px;
-          border: 1px solid var(--outline-outline-variant, #E7E7EE);
+          border-radius: 0 24px 24px 0;
+          border-top: 1px solid var(--outline-outline-variant, #393939);
+          border-right: 1px solid var(--outline-outline-variant, #393939);
+          border-bottom: 1px solid var(--outline-outline-variant, #393939);
           background: var(--surface-surface, #1E1E1E);
-          box-shadow: 0px 6px 24px 0px var(--shadow-card, #F2F2F2);
           
-          color: var(--surface-on-surface, #000);
+          color: var(--surface-on-surface, #FFF);
+
+          /* h6/prim */
+          font-family: var(--family-heading-primary, Jost);
+          font-size: var(--size-heading-h6, 24px);
+          font-style: normal;
+          font-weight: var(--weight-heading-primary, 400);
+          line-height: var(--line-height-heading-h6, 28px); /* 116.667% */
+        }
+
+        .vs_arg_right{
+          justify-content: flex-end;
+        }
+        .decor_right{
+          width: 32px;
+          flex-shrink: 0;
+          align-self: stretch;
+          
+          border-radius: 0 24px 24px 0;
+          border-top: 1px solid var(--primary-primary, #805BFF);
+          border-right: 1px solid var(--primary-primary, #805BFF);
+          border-bottom: 1px solid var(--primary-primary, #805BFF);
+          background: var(--surface-surface, #1E1E1E);
+        }
+        .label_right{
+          display: flex;
+          padding: 26px 8px 26px 0;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 10px;
+          flex: 1 0 0;
+          
+          border-radius: 24px 0 0 24px;
+          border-top: 1px solid var(--outline-outline-variant, #393939);
+          border-bottom: 1px solid var(--outline-outline-variant, #393939);
+          border-left: 1px solid var(--outline-outline-variant, #393939);
+          background: var(--surface-surface, #1E1E1E);
+          
+          color: var(--surface-on-surface, #FFF);
+          text-align: right;
           
           /* h6/prim */
           font-family: var(--family-heading-primary, Jost);
@@ -110,23 +168,7 @@ export class WhatUnique extends HTMLElement {
           font-style: normal;
           font-weight: var(--weight-heading-primary, 400);
           line-height: var(--line-height-heading-h6, 28px); /* 116.667% */
-          position: relative;
         }
-        .arg_decor_left{
-          position: absolute;
-          top: -1px;
-          left: -2px;
-        }
-        
-        .arg_decor_right{
-          position: absolute;
-          top: -1px;
-          right: -2px;
-        }
-        .vs_arg_right{
-          justify-content: flex-end;
-        }
-        
         .fundal{
            position: absolute;
            left: 50%;
@@ -164,77 +206,77 @@ export class WhatUnique extends HTMLElement {
         <div class="card_list">
           <div class="vs_row">
             <div class="vs_arg vs_arg_right row_1">
-              <svg class="arg_decor_right" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M0 1H8C21.2548 1 32 11.7452 32 25V57C32 70.2548 21.2548 81 8 81H0" stroke="#805BFF"/>
-              </svg>
-              User sets filters manually
+              <div class="label_right">
+                User sets filters manually
+              </div>
+              <div class="decor_right"></div>
             </div>
             <vs-unique></vs-unique>
             <div class="vs_arg row_1_left">
-              <svg class="arg_decor_left" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M33 1H25C11.7452 1 1 11.7452 1 25V57C1 70.2548 11.7452 81 25 81H33" stroke="#805BFF"/>
-              </svg>
-              Dion learns from preferences + context
+              <div class="decor_left"></div>
+              <div class="label_left">
+                Dion learns from preferences + context
+              </div>
             </div>
           </div>
           <div class="vs_row">
             <div class="vs_arg vs_arg_right row_2">
-              <svg class="arg_decor_right" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M0 1H8C21.2548 1 32 11.7452 32 25V57C32 70.2548 21.2548 81 8 81H0" stroke="#805BFF"/>
-              </svg>
-              User compares results side-by-side
+              <div class="label_right">
+                User compares results side-by-side
+              </div>
+              <div class="decor_right"></div>
             </div>
             <vs-unique></vs-unique>
             <div class="vs_arg row_2_left">
-              <svg class="arg_decor_left" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M33 1H25C11.7452 1 1 11.7452 1 25V57C1 70.2548 11.7452 81 25 81H33" stroke="#805BFF"/>
-              </svg>
-              Dion presents a best-fit ranked shortlist
+              <div class="decor_left"></div>
+              <div class="label_left">
+                Dion presents a best-fit ranked shortlist
+              </div>
             </div>
           </div>
           <div class="vs_row">
             <div class="vs_arg vs_arg_right row_3">
-              <svg class="arg_decor_right" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M0 1H8C21.2548 1 32 11.7452 32 25V57C32 70.2548 21.2548 81 8 81H0" stroke="#805BFF"/>
-              </svg>
-              No intelligence about travel intent
+              <div class="label_right">
+                No intelligence about travel intent
+              </div>
+              <div class="decor_right"></div>
             </div>
             <vs-unique></vs-unique>
             <div class="vs_arg row_3_left">
-              <svg class="arg_decor_left" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M33 1H25C11.7452 1 1 11.7452 1 25V57C1 70.2548 11.7452 81 25 81H33" stroke="#805BFF"/>
-              </svg>
-              Dion understands goals like: “arrive early” or “save $”
+              <div class="decor_left"></div>
+              <div class="label_left">
+                Dion understands goals like: “arrive early” or “save $”
+              </div>
             </div>
           </div>
           <div class="vs_row">
             <div class="vs_arg vs_arg_right row_4">
-              <svg class="arg_decor_right" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M0 1H8C21.2548 1 32 11.7452 32 25V57C32 70.2548 21.2548 81 8 81H0" stroke="#805BFF"/>
-              </svg>
-              Just static results
+              <div class="label_right">
+                Just static results
+              </div>
+              <div class="decor_right"></div>
             </div>
             <vs-unique></vs-unique>
             <div class="vs_arg row_4_left">
-              <svg class="arg_decor_left" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M33 1H25C11.7452 1 1 11.7452 1 25V57C1 70.2548 11.7452 81 25 81H33" stroke="#805BFF"/>
-              </svg>
-              Dynamic analysis across multiple data sources
+              <div class="decor_left"></div>
+              <div class="label_left">
+                Dynamic analysis across multiple data sources
+              </div>
             </div>
           </div>
           <div class="vs_row">
             <div class="vs_arg vs_arg_right row_5">
-              <svg class="arg_decor_right" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M0 1H8C21.2548 1 32 11.7452 32 25V57C32 70.2548 21.2548 81 8 81H0" stroke="#805BFF"/>
-              </svg>
-              Zero transparency on why one is better
+              <div class="label_right">
+                Zero transparency on why one is better
+              </div>
+              <div class="decor_right"></div>
             </div>
             <vs-unique></vs-unique>
             <div class="vs_arg row_5_left">
-              <svg class="arg_decor_left" xmlns="http://www.w3.org/2000/svg" width="33" height="82" viewBox="0 0 33 82" fill="none">
-                <path d="M33 1H25C11.7452 1 1 11.7452 1 25V57C1 70.2548 11.7452 81 25 81H33" stroke="#805BFF"/>
-              </svg>
-              Explains recommendations in plain language
+              <div class="decor_left"></div>
+              <div class="label_left">
+                Explains recommendations in plain language
+              </div>
             </div>
           </div>
           <svg class="fundal" width="1466" height="634" viewBox="0 0 1466 634" fill="none" xmlns="http://www.w3.org/2000/svg">
