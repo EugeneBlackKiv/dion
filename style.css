@@ -76,6 +76,7 @@
   --state-layers-surface-on-surface-opa-lg: #292A2E66;
   --state-layers-surface-on-surface-opa-xl: #292A2EA3;
   --opa-back: 0.22;
+  --shadow-card-2: #D6CBFF;
 }
 
 [data-theme="Dark Theme"] {
@@ -156,6 +157,8 @@
   --state-layers-surface-on-surface-opa-lg: #C6C6CD66;
   --state-layers-surface-on-surface-opa-xl: #C6C6CDA3;
   --opa-back: 0.28;
+  --shadow-card-2: #1B1B1B;
+
 }
 
 body {

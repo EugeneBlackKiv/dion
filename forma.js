@@ -27,7 +27,7 @@ export class SearchForm extends HTMLElement {
         border: 1px solid var(--outline-outline-variant, #E7E7EE);
         background: var(--blur-1, rgba(255, 255, 255, 0.24));
         backdrop-filter: blur(4px);
-        box-shadow: 0px 6px 32px 0px var(--surface-surface, #1E1E1E);
+        box-shadow: 0 6px 32px 0 var(--shadow-card-2, #D6CBFF);
         position: relative;
       }
       
